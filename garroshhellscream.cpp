@@ -4,7 +4,8 @@ SD%Complete: 75
 SDComment: far too op because of summon sha problem, he will continue to heal him self
 (Yshaarj's Protection) and timing errors that can  be fixed. He might not summon fading breath but
 it can be fixed. Upgraded spells with same name can be fixed. Spell Target can be fixed.
-Could kill himself can be fixed easily.
+Could kill himself can be fixed easily. Order of spell casts are wrong can be fixed but takes a while
+to research on the battle.
 SDCategory: Siege Of Orgrimmar
 EndScriptData */
 
