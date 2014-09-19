@@ -3,8 +3,7 @@ SDName: Boss_Garrosh_Hellscream
 SD%Complete: 75
 SDComment: far too op because of summon sha problem, he will continue to heal him self
 (Yshaarj's Protection) and timing errors that can  be fixed. He might not summon fading breath but
-it can be fixed. Upgraded spells with same name can be fixed. Spell Target can be fixed.
-Could kill himself can be fixed easily. Order of spell casts are wrong can be fixed but takes a while
+it can be fixed. Upgraded spells with same name can be fixed. Order of spell casts are wrong can be fixed but takes a while
 to research on the battle.
 SDCategory: Siege Of Orgrimmar
 EndScriptData */
@@ -16,7 +15,7 @@ enum Spells
 	SPELL_ANNIHILATE	= 144969,	
 	SPELL_DESECRATE = 144748,
 	SPELL_EMPOWERED_DESECRATE	= 144749,
-	SPELL_EMPOWERED_DESECRATE	= 145829,
+	SPELL_EMPOWERED_DESECRATE2	= 145829,
 	SPELL_EMPOWERED_GRIPPING_DESPAIR	= 145831,
 	SPELL_EXPLOSIVE_DESPAIR	= 145199,
 	SPELL_EMPOWERED_TOUCH_OF_YSHAARJ	= 145831,
@@ -39,7 +38,7 @@ enum Events
 	EVENT_ANNIHILATE	= 1,	
 	EVENT_DESECRATE = 2,
 	EVENT_EMPOWERED_DESECRATE	= 3,
-	EVENT_EMPOWERED_DESECRATE	= 4,
+	EVENT_EMPOWERED_DESECRATE2	= 4,
 	EVENT_EMPOWERED_GRIPPING_DESPAIR	= 5,
 	EVENT_EXPLOSIVE_DESPAIR	= 6,
 	EVENT_EMPOWERED_TOUCH_OF_YSHAARJ	= 7,
@@ -62,7 +61,7 @@ void EnterCombat(Unit* /*who*/) OVERRIDE
 						events.ScheduleEvent(EVENT_ANNIHILATE, 60000);
 						events.ScheduleEvent(EVENT_DESECRATE, 120000)
 						events.ScheduleEvent(EVENT_EMPOWERED_DESECRATE, 160000)
-						events.ScheduleEvent(EVENT_EMPOWERED_DESPAIR, 210000)
+						events.ScheduleEvent(EVENT_EMPOWERED_DESECRATE2, 210000)
 						events.ScheduleEvent(EVENT_EMPOWERED_GRIPPING_DESPAIR, 300000)
 						events.ScheduleEvent(EVENT_EXPLOSIVE_DESPAIR, 350000)
 						events.ScheduleEvent(EVENT_EMPOWERED_WHIRLING_CORRUPTION, 450000)
@@ -96,10 +95,10 @@ while (uint32 eventId = events.ExecuteEvent())
 			DoCastVictim(SPELL_EMPOWERED_DESECRATE);
 			events.ScheduleEvent(EVENT_DESECRATE, 160000);
 			break; //done
-		case EVENT_EMPOWERED_DESECRATE:
+		case EVENT_EMPOWERED_DESECRATE2:
 			if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-			DoCastVictim(SPELL_EMPOWERED_DESECRATE);
-			events.ScheduleEvent(EVENT_EMPOWERED_DESECRATE, 210000);
+			DoCastVictim(SPELL_EMPOWERED_DESECRATE2);
+			events.ScheduleEvent(EVENT_EMPOWERED_DESECRATE2, 210000);
 			break; //done
 		case EVENT_EMPOWERED_GRIPPING_DESPAIR:
 			if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
@@ -127,18 +126,16 @@ while (uint32 eventId = events.ExecuteEvent())
 			events.ScheduleEvent(EVENT_GRIPPING_DESPAIR, 600000);
 			break;
 		case EVENT_HELLSCREAMS_WARSONG:
-			if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-			DoCastVictim(SPELL_HELLSCREAMS_WARSONG);
+			DoCast(me, SPELL_HELLSCREAMS_WARSONG);
 			events.ScheduleEvent(EVENT_HELLSCREAMS_WARSONG, 700000);
 			break;
 		case EVENT_REALM_OF_YSHAARJ:
-			if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
-			DoCastVictim(SPELL_REALM_OF_YSHAARJ);
+			DoCast(me, SPELL_REALM_OF_YSHAARJ);
 			events.ScheduleEvent(EVENT_REALM_OF_YSHAARJ, 750000);
 			break;
 		case EVENT_SUMMON_FADING_BREATH:
 			DoCast(me, SPELL_SUMMON_FADING_BREATH);
-			events.ScheduleEvent(EVENT_SUMMON_FADING_BREATH, 800000);
+			events.ScheduleEvent(EVENT_SUMMON_FADING_BREATH, 750000);
 			break;
 		case EVENT_TOUCH_OF_YSHAARJ:
 			if (Unit *target = SelectTarget(SELECT_TARGET_RANDOM, 0))
@@ -157,7 +154,7 @@ while (uint32 eventId = events.ExecuteEvent())
 			break;
 		case EVENT_WHIRLING_CORRUPTION:
 			DoCastVictim(SPELL_WHIRLING_CORRUPTION);
-			events.ScheduleEvent(EVENT_WHIRLING_CORRUPTION, 100000);
+			events.ScheduleEvent(EVENT_WHIRLING_CORRUPTION, 1000000);
 			break;
 		case EVENT_YSHAARJS_PROTECTION:
 		DoCast(me, SPELL_YSHAARJS_PROTECTION);
